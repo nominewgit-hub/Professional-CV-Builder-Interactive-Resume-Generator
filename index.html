@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional CV Builder | Create Your Resume</title>
+    <meta name="description" content="Build a professional CV with our step-by-step builder. Auto-save, preview, and download your resume.">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/transitions.css">
+    <link rel="stylesheet" href="css/preview-styles.css">
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/icons/cv-icon.svg">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1 class="app-title">
+                    <i class="fas fa-file-alt"></i>
+                    Professional CV Builder
+                </h1>
+                <p class="app-subtitle">Create your perfect resume in 5 simple steps</p>
+            </div>
+        </header>
+
+        <!-- Progress Section -->
+        <section class="progress-section">
+            <div class="progress-info">
+                <span class="step-counter">Step <span id="currentStep">1</span> of 5</span>
+                <span class="completion-text" id="completionText">Getting started</span>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-track">
+                    <div class="progress-fill" id="progressBar"></div>
+                </div>
+                <div class="progress-dots">
+                    <div class="progress-dot active" data-step="1">
+                        <i class="fas fa-user"></i>
+                        <span>Personal</span>
+                    </div>
+                    <div class="progress-dot" data-step="2">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Education</span>
+                    </div>
+                    <div class="progress-dot" data-step="3">
+                        <i class="fas fa-code"></i>
+                        <span>Skills</span>
+                    </div>
+                    <div class="progress-dot" data-step="4">
+                        <i class="fas fa-briefcase"></i>
+                        <span>Experience</span>
+                    </div>
+                    <div class="progress-dot" data-step="5">
+                        <i class="fas fa-eye"></i>
+                        <span>Preview</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Form Container -->
+        <main class="form-container">
+            <form id="cvForm" class="cv-form" novalidate>
+                <!-- Step 1: Personal Information -->
+                <section class="form-step active" data-step="1">
+                    <div class="step-header">
+                        <h2><i class="fas fa-user-circle"></i> Personal Information</h2>
+                        <p class="step-description">Tell us about yourself. All fields marked with * are required.</p>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="fullName" class="required">
+                                <i class="fas fa-signature"></i> Full Name
+                            </label>
+                            <input type="text" 
+                                   id="fullName" 
+                                   name="fullName" 
+                                   placeholder="John Doe"
+                                   data-validate="required|minLength:2"
+                                   autocomplete="name">
+                            <div class="error-message" data-for="fullName"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="required">
+                                <i class="fas fa-envelope"></i> Email Address
+                            </label>
+                            <input type="email" 
+                                   id="email" 
+                                   name="email" 
+                                   placeholder="john@example.com"
+                                   data-validate="required|email"
+                                   autocomplete="email">
+                            <div class="error-message" data-for="email"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone" class="required">
+                                <i class="fas fa-phone"></i> Phone Number
+                            </label>
+                            <input type="tel" 
+                                   id="phone" 
+                                   name="phone" 
+                                   placeholder="+1 (555) 123-4567"
+                                   data-validate="required|phone"
+                                   autocomplete="tel">
+                            <div class="error-message" data-for="phone"></div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="address">
+                                <i class="fas fa-map-marker-alt"></i> Address
+                            </label>
+                            <input type="text" 
+                                   id="address" 
+                                   name="address" 
+                                   placeholder="123 Main St, City, Country"
+                                   autocomplete="street-address">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="linkedin">
+                                <i class="fab fa-linkedin"></i> LinkedIn Profile
+                            </label>
+                            <input type="url" 
+                                   id="linkedin" 
+                                   name="linkedin" 
+                                   placeholder="https://linkedin.com/in/username">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="portfolio">
+                                <i class="fas fa-globe"></i> Portfolio Website
+                            </label>
+                            <input type="url" 
+                                   id="portfolio" 
+                                   name="portfolio" 
+                                   placeholder="https://yourportfolio.com">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Step 2: Education -->
+                <section class="form-step" data-step="2">
+                    <div class="step-header">
+                        <h2><i class="fas fa-graduation-cap"></i> Education Background</h2>
+                        <p class="step-description">Add your educational qualifications. You can add multiple entries.</p>
+                    </div>
+
+                    <div class="dynamic-section" id="educationEntries">
+                        <!-- Education entries will be added here -->
+                        <div class="education-entry" data-entry="1">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="required">
+                                        <i class="fas fa-certificate"></i> Degree
+                                    </label>
+                                    <input type="text" 
+                                           name="education[1][degree]" 
+                                           placeholder="Bachelor of Science in Computer Science"
+                                           data-validate="required">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="required">
+                                        <i class="fas fa-university"></i> Institution
+                                    </label>
+                                    <input type="text" 
+                                           name="education[1][institution]" 
+                                           placeholder="University of Technology"
+                                           data-validate="required">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="required">
+                                        <i class="fas fa-calendar-alt"></i> Graduation Year
+                                    </label>
+                                    <input type="number" 
+                                           name="education[1][year]" 
+                                           min="1970" 
+                                           max="2030"
+                                           placeholder="2023"
+                                           data-validate="required|number">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>
+                                        <i class="fas fa-star"></i> GPA/Percentage
+                                    </label>
+                                    <input type="text" 
+                                           name="education[1][grade]" 
+                                           placeholder="3.8/4.0">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn-add" id="addEducation">
+                        <i class="fas fa-plus"></i> Add Another Education
+                    </button>
+                </section>
+
+                <!-- Step 3: Skills -->
+                <section class="form-step" data-step="3">
+                    <div class="step-header">
+                        <h2><i class="fas fa-code"></i> Skills & Expertise</h2>
+                        <p class="step-description">Add your skills. Use comma to separate multiple skills.</p>
+                    </div>
+
+                    <div class="skills-container">
+                        <div class="form-group">
+                            <label class="required">
+                                <i class="fas fa-cogs"></i> Technical Skills
+                            </label>
+                            <div class="skills-input-wrapper">
+                                <input type="text" 
+                                       id="skillsInput" 
+                                       placeholder="JavaScript, React, Node.js, Python"
+                                       data-validate="required">
+                                <div class="skills-hint">
+                                    <i class="fas fa-lightbulb"></i>
+                                    Press Enter or comma to add skills
+                                </div>
+                            </div>
+                            <div class="skills-tags" id="skillsTags"></div>
+                            <input type="hidden" name="skills" id="skillsHidden">
+                        </div>
+
+                        <div class="skill-categories">
+                            <div class="category">
+                                <h4><i class="fas fa-laptop-code"></i> Technical Skills</h4>
+                                <div class="category-tags" id="technicalTags"></div>
+                            </div>
+                            <div class="category">
+                                <h4><i class="fas fa-users"></i> Soft Skills</h4>
+                                <div class="category-tags" id="softTags"></div>
+                            </div>
+                            <div class="category">
+                                <h4><i class="fas fa-language"></i> Languages</h4>
+                                <div class="category-tags" id="languageTags"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Step 4: Experience -->
+                <section class="form-step" data-step="4">
+                    <div class="step-header">
+                        <h2><i class="fas fa-briefcase"></i> Work Experience</h2>
+                        <p class="step-description">Add your professional experience. If you're a fresher, check the box below.</p>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="isFresher" name="isFresher">
+                        <label for="isFresher">
+                            <i class="fas fa-user-graduate"></i> I'm a fresher (no work experience)
+                        </label>
+                    </div>
+
+                    <div class="dynamic-section" id="experienceContainer">
+                        <div class="experience-entry" data-entry="1">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="required">
+                                        <i class="fas fa-user-tie"></i> Job Title
+                                    </label>
+                                    <input type="text" 
+                                           name="experience[1][title]" 
+                                           placeholder="Frontend Developer"
+                                           data-validate="required">
+                                    <div class="error-message"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="required">
+                                        <i class="fas fa-building"></i> Company
+                                    </label>
+                                    <input type="text" 
+                                           name="experience[1][company]" 
+                                           placeholder="Tech Solutions Inc."
+                                           data-validate="required">
+                                    <div class="error-message"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="required">
+                                        <i class="fas fa-calendar"></i> Start Date
+                                    </label>
+                                    <input type="month" 
+                                           name="experience[1][startDate]" 
+                                           data-validate="required">
+                                    <div class="error-message"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>
+                                        <i class="fas fa-calendar"></i> End Date
+                                    </label>
+                                    <input type="month" name="experience[1][endDate]">
+                                    <div class="checkbox-inline">
+                                        <input type="checkbox" name="experience[1][current]" id="exp1Current" onchange="app.toggleEndDate(1)">
+                                        <label for="exp1Current">Currently working here</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group full-width">
+                                    <label>
+                                        <i class="fas fa-tasks"></i> Responsibilities & Achievements
+                                    </label>
+                                    <textarea name="experience[1][description]" 
+                                              rows="4"
+                                              placeholder="• Developed responsive web applications
+• Improved performance by 40%
+• Led a team of 3 developers"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn-add" id="addExperience">
+                        <i class="fas fa-plus"></i> Add Another Experience
+                    </button>
+                </section>
+
+                <!-- Step 5: Preview & Finalize -->
+                <section class="form-step" data-step="5">
+                    <div class="step-header">
+                        <h2><i class="fas fa-eye"></i> Preview & Finalize</h2>
+                        <p class="step-description">Review your CV and add a profile picture before finalizing.</p>
+                    </div>
+
+                    <div class="preview-section">
+                        <div class="preview-controls">
+                            <button type="button" class="btn-secondary" id="printCV">
+                                <i class="fas fa-print"></i> Print CV
+                            </button>
+                            <button type="button" class="btn-secondary" id="downloadCV">
+                                <i class="fas fa-download"></i> Download PDF
+                            </button>
+                            <button type="button" class="btn-secondary" id="resetForm">
+                                <i class="fas fa-redo"></i> Start Over
+                            </button>
+                        </div>
+
+                        <div class="cv-preview-container">
+                            <div class="cv-paper" id="cvPreview">
+                                <!-- CV content will be injected here -->
+                                <div class="cv-loading">
+                                    <i class="fas fa-spinner fa-spin"></i>
+                                    Generating CV Preview...
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="upload-section">
+                            <div class="upload-area" id="uploadArea">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <h3>Upload Profile Picture</h3>
+                                <p>Drag & drop or click to upload (Optional)</p>
+                                <p class="upload-hint">Max size: 2MB • JPG, PNG, GIF</p>
+                                <input type="file" 
+                                       id="profilePic" 
+                                       name="profilePic"
+                                       accept="image/*"
+                                       class="hidden">
+                            </div>
+                            <div class="image-preview" id="imagePreview"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Navigation Buttons -->
+                <div class="form-navigation">
+                    <button type="button" 
+                            class="btn-nav btn-prev" 
+                            id="prevBtn"
+                            aria-label="Previous step">
+                        <i class="fas fa-arrow-left"></i> Previous
+                    </button>
+                    
+                    <div class="navigation-info">
+                        <span class="auto-save-status" id="autoSaveStatus">
+                            <i class="fas fa-save"></i> Auto-saved
+                        </span>
+                    </div>
+                    
+                    <button type="button" 
+                            class="btn-nav btn-next" 
+                            id="nextBtn"
+                            aria-label="Next step">
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </form>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>© 2026 Professional CV Builder 'MUHAMMAD_NOMAN'. All data is stored locally in your browser.</p>
+            <p class="footer-links">
+                <a href="#" id="clearData"><i class="fas fa-trash"></i> Clear All Data</a>
+                <a href="#" id="exportData"><i class="fas fa-file-export"></i> Export Data</a>
+                <a href="#" id="importData"><i class="fas fa-file-import"></i> Import Data</a>
+            </p>
+        </footer>
+
+        <!-- Toast Notifications -->
+        <div class="toast-container" id="toastContainer"></div>
+
+        <!-- Confirmation Modal -->
+        <div class="modal" id="confirmationModal">
+            <div class="modal-content">
+                <h3 id="modalTitle"></h3>
+                <p id="modalMessage"></p>
+                <div class="modal-actions">
+                    <button class="btn-secondary" id="modalCancel">Cancel</button>
+                    <button class="btn-primary" id="modalConfirm">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/storage.js"></script>
+    <script src="js/validation.js"></script>
+    <script src="js/cv-preview.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
